@@ -1,0 +1,11 @@
+#+hugo_base_dir: ../../
+#+hugo_section: posts
+#+title: Hello, world
+#+date: 2026-07-04
+#+hugo_tags: meta
+#+hugo_draft: false
+
+Starting a blog.
+No grand vision here - just a place to write things down before I forget them.
+
+Expect notes on software engineering, Emacs, and whatever I'm currently obsessing over.

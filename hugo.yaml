@@ -1,0 +1,37 @@
+baseURL: https://mattbho.com/
+locale: en-us
+title: Matt Ho
+theme: PaperMod
+defaultContentLanguage: en
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+
+pagination:
+  pagerSize: 10
+
+params:
+  defaultTheme: dark
+  showReadingTime: false
+  showShareButtons: false
+  showPostNavLinks: true
+  showBreadCrumbs: false
+  showCodeCopyButtons: true
+  showToc: false
+  disableSpecial1stPost: true
+
+
+menu:
+  main:
+    - name: About
+      url: /about/
+      weight: 10
+    - name: Posts
+      url: /posts/
+      weight: 20
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
