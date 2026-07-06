@@ -74,23 +74,28 @@ The concept mapping is direct: Doom split = tmux pane, Doom workspace = tmux win
 
 {{< figure src="/images/my-claude-code-setup/tmux-doom-plan.png" caption="<span class=\"figure-number\">Figure 1: </span>tmux which-key popup showing the Doom-style leader table - +Windows, +Panes, +Sessions all one key away" >}}
 
+**Update:** I've since moved off tmux entirely in favor of herdr (see below).
+The keybind mapping was a fun exercise but herdr just solves the multi-agent problem better out of the box.
 
-### Notifications that know where you are {#notifications-that-know-where-you-are}
 
-Now this is really sick and I'm really proud of this.
+### Notifications and agent visibility with herdr {#notifications-and-agent-visibility-with-herdr}
 
-I wired up a hook at `~/.claude/hooks/notify.sh` that fires on every `Notification` and `Stop` event.
-The key detail is in the title - it uses the tmux window name, not just "Claude Code":
+This whole section used to be about a custom `notify.sh` hook I wired up with osascript - pretty proud of it at the time.
+But I've consolidated the whole problem by switching to [herdr](https://herdr.io), a multiplexer that is agent-aware from the ground up.
 
-```bash
-osascript -e "display notification \"$body\" with title \"Claude Code - $win\""
-```
+The big thing herdr gives me is a persistent side panel showing every agent currently running, labeled by space and tab.
+At a glance I can see exactly what's active and where - no custom scripting, no hook wiring, no osascript.
+It just knows.
 
-When I have three agents running across three windows, I know exactly which one needs me.
-And it's smart about suppression! If the tmux window is already active and kitty is the frontmost app, it stays quiet.
-It only fires when I actually need the nudge.
+It also supports worktrees and I suspect there's a lot more I haven't dug into yet.
+I'll write more once I've had more time with it.
 
-{{< figure src="/images/my-claude-code-setup/notification.png" caption="<span class=\"figure-number\">Figure 2: </span>Notification showing the tmux window name" >}}
+{{< figure src="/images/my-claude-code-setup/herdr.png" caption="<span class=\"figure-number\">Figure 2: </span>herdr showing three agents across two spaces - swish General, swish Blog, and personal - all labeled and visible at a glance" >}}
+
+The notifications are agent-aware too.
+When an agent finishes, you get a nudge that shows the space and tab it came from - and clicking it jumps you straight to that agent.
+
+{{< figure src="/images/my-claude-code-setup/herdr-notification.png" caption="<span class=\"figure-number\">Figure 3: </span>herdr notification - clickable, takes you directly to the agent that posted it" >}}
 
 
 ### AXIs - Agent Experience Interfaces {#axis-agent-experience-interfaces}
@@ -107,7 +112,7 @@ This literally makes the feedback look way way more pleasing to the eyes and it'
 
 The tmux plan above was built entirely through lavish.
 
-{{< figure src="/images/my-claude-code-setup/lavish-plan.png" caption="<span class=\"figure-number\">Figure 3: </span>lavish in action - the tmux config plan with my feedback visible in the conversation panel" >}}
+{{< figure src="/images/my-claude-code-setup/lavish-plan.png" caption="<span class=\"figure-number\">Figure 4: </span>lavish in action - the tmux config plan with my feedback visible in the conversation panel" >}}
 
 **gh-axi** this just wraps the github cli, apparently its more efficient, but we shall see lol.
 
@@ -126,7 +131,7 @@ It sounds simple but it makes the Opus → Sonnet transition feel completely sea
 
 I've been using it to get up to speed on Claude Code internals.
 
-{{< figure src="/images/my-claude-code-setup/tmux-teach.png" caption="<span class=\"figure-number\">Figure 4: </span>The /teach skill running a lesson on Claude agent primitives" >}}
+{{< figure src="/images/my-claude-code-setup/tmux-teach.png" caption="<span class=\"figure-number\">Figure 5: </span>The /teach skill running a lesson on Claude agent primitives" >}}
 
 
 ### Voice with OpenSuperWhisper {#voice-with-opensuperwhisper}

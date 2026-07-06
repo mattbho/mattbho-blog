@@ -73,23 +73,29 @@ The concept mapping is direct: Doom split = tmux pane, Doom workspace = tmux win
 #+caption: tmux which-key popup showing the Doom-style leader table - +Windows, +Panes, +Sessions all one key away
 [[/images/my-claude-code-setup/tmux-doom-plan.png]]
 
-*** Notifications that know where you are
+*Update:* I've since moved off tmux entirely in favor of herdr (see below).
+The keybind mapping was a fun exercise but herdr just solves the multi-agent problem better out of the box.
 
-Now this is really sick and I'm really proud of this.
+*** Notifications and agent visibility with herdr
 
-I wired up a hook at =~/.claude/hooks/notify.sh= that fires on every =Notification= and =Stop= event.
-The key detail is in the title - it uses the tmux window name, not just "Claude Code":
+This whole section used to be about a custom =notify.sh= hook I wired up with osascript - pretty proud of it at the time.
+But I've consolidated the whole problem by switching to [[https://herdr.io][herdr]], a multiplexer that is agent-aware from the ground up.
 
-#+begin_src bash
-osascript -e "display notification \"$body\" with title \"Claude Code - $win\""
-#+end_src
+The big thing herdr gives me is a persistent side panel showing every agent currently running, labeled by space and tab.
+At a glance I can see exactly what's active and where - no custom scripting, no hook wiring, no osascript.
+It just knows.
 
-When I have three agents running across three windows, I know exactly which one needs me.
-And it's smart about suppression! If the tmux window is already active and kitty is the frontmost app, it stays quiet.
-It only fires when I actually need the nudge.
+It also supports worktrees and I suspect there's a lot more I haven't dug into yet.
+I'll write more once I've had more time with it.
 
-#+caption: Notification showing the tmux window name
-[[/images/my-claude-code-setup/notification.png]]
+#+caption: herdr showing three agents across two spaces - swish General, swish Blog, and personal - all labeled and visible at a glance
+[[/images/my-claude-code-setup/herdr.png]]
+
+The notifications are agent-aware too.
+When an agent finishes, you get a nudge that shows the space and tab it came from - and clicking it jumps you straight to that agent.
+
+#+caption: herdr notification - clickable, takes you directly to the agent that posted it
+[[/images/my-claude-code-setup/herdr-notification.png]]
 
 *** AXIs - Agent Experience Interfaces
 
